@@ -155,6 +155,11 @@ namespace v2rayN
         /// </summary>
         public const string CustomIconName = "v2rayN.ico";
 
+
+        public const string PersonalPacLocation = "personalPacLocation.txt";
+        public const string PersonalPacFileName = "pac.txt";
+        public const string OriginalPacFileName = "originalPac.txt";
+
         public enum StatisticsFreshRate
         {
             quick = 1000,

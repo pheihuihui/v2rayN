@@ -314,6 +314,10 @@ namespace v2rayN.Mode
             {
                 return GetLocalPort(Global.InboundSocks) + 103;
             }
+            else if (protocol == "personalPac")
+            {
+                return GetLocalPort(Global.InboundSocks) + 1522;
+            }
 
             int localPort = 0;
             foreach (InItem inItem in inbound)

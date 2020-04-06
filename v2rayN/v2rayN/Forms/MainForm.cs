@@ -17,6 +17,7 @@ namespace v2rayN.Forms
         private V2rayHandler v2rayHandler;
         private List<int> lvSelecteds = new List<int>();
         private StatisticsHandler statistics = null;
+        private PersonalPacHandler personalPacHandler = null;
 
         #region Window 事件
 
@@ -52,6 +53,18 @@ namespace v2rayN.Forms
             {
                 statistics = new StatisticsHandler(config, UpdateStatisticsHandler);
             }
+
+            personalPacHandler = new PersonalPacHandler(config);
+            personalPacHandler.StartListening();
+            personalPacHandler.OnPersonalPacUpdated += PersonalPacHandler_OnPersonalPacUpdated;
+        }
+
+        private void PersonalPacHandler_OnPersonalPacUpdated(object sender, string[] e)
+        {
+            var res = string.Join(Environment.NewLine, e);
+            Global.reloadV2ray = true;
+            LoadV2ray();
+            MessageBox.Show(e.Length.ToString() + " items updated.");
         }
 
         private void MainForm_VisibleChanged(object sender, EventArgs e)

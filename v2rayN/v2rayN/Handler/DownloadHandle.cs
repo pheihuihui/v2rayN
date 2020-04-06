@@ -320,6 +320,7 @@ namespace v2rayN.Handler
             {
                 File.WriteAllText(Utils.GetTempPath("gfwlist.txt"), result, Encoding.UTF8);
                 List<string> lines = ParsePacResult(result);
+                SaveOriginalPac(lines);
                 string abpContent = Utils.UnGzip(Resources.abp_js);
                 abpContent = abpContent.Replace("__RULES__", JsonConvert.SerializeObject(lines, Formatting.Indented));
                 File.WriteAllText(Utils.GetPath(Global.pacFILE), abpContent, Encoding.UTF8);
@@ -349,6 +350,13 @@ namespace v2rayN.Handler
                 }
             }
             return valid_lines;
+        }
+
+        private void SaveOriginalPac(List<string> items)
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, Global.OriginalPacFileName);
+            var content = string.Join(Environment.NewLine, items.ToArray());
+            File.WriteAllText(path, content);
         }
 
         #endregion
