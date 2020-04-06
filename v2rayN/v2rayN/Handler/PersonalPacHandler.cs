@@ -95,10 +95,9 @@ namespace v2rayN.Handler
         private void UpdatePacFile(string[] personalLines)
         {
             var lines = File.ReadAllLines(Global.OriginalPacFileName);
-            var name = GetPersonalPacLocation();
             var newLines = lines.Union(personalLines);
             string abpContent = Utils.UnGzip(Resources.abp_js);
-            abpContent = abpContent.Replace("__RULES__", JsonConvert.SerializeObject(personalLines, Formatting.Indented));
+            abpContent = abpContent.Replace("__RULES__", JsonConvert.SerializeObject(newLines, Formatting.Indented));
             File.WriteAllText(Utils.GetPath(Global.pacFILE), abpContent, Encoding.UTF8);
         }
 
