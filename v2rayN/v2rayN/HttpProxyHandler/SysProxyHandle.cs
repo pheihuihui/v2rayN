@@ -160,7 +160,7 @@ namespace v2rayN.HttpProxyHandler
 
                         process.WaitForExit();
                     }
-                    catch (System.ComponentModel.Win32Exception e)
+                    catch (System.ComponentModel.Win32Exception)
                     {
 
                         // log the arguments

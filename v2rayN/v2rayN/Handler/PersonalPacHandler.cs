@@ -27,7 +27,7 @@ namespace v2rayN.Handler
             listener = new HttpListener();
             var portNumber = _config.GetLocalPort("personalPac");
             var url = Global.TcpHeaderHttp + "://" + Global.Loopback + ":" + portNumber.ToString() + "/";
-            listener.Prefixes.Add(url);
+            //listener.Prefixes.Add(url);
             listener.Start();
             Task.Run(HandleIncomingConnections);
         }
@@ -86,9 +86,9 @@ namespace v2rayN.Handler
             var name = GetPersonalPacLocation();
             var old = GetPersonalPacContent(name);
             var diff = arr.Except(old).ToArray();
-            var recent = arr.Union(old);
+            var recent = arr.Union(old).ToArray();
             File.WriteAllLines(name, recent);
-            UpdatePacFile(arr);
+            UpdatePacFile(recent);
             OnPersonalPacUpdated.Invoke(this, diff);
         }
 

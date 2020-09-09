@@ -63,7 +63,14 @@ namespace v2rayN.Forms
         {
             var res = string.Join(Environment.NewLine, e);
             Global.reloadV2ray = true;
-            LoadV2ray();
+            try
+            {
+                LoadV2ray();
+            }
+            catch (Exception ee)
+            {
+                throw ee;
+            }
             MessageBox.Show(e.Length.ToString() + " items updated.");
         }
 
@@ -1251,7 +1258,7 @@ namespace v2rayN.Forms
             }
 
             AppendText(false, string.Format(UIRes.I18N("MsgStartUpdating"), "v2rayN"));
-            downloadHandle.CheckUpdateAsync("v2rayN");
+            _ = downloadHandle.CheckUpdateAsync("v2rayN");
         }
 
         private void tsbCheckUpdateCore_Click(object sender, EventArgs e)
@@ -1324,7 +1331,7 @@ namespace v2rayN.Forms
             }
 
             AppendText(false, string.Format(UIRes.I18N("MsgStartUpdating"), "v2rayCore"));
-            downloadHandle.CheckUpdateAsync("Core");
+            _ = downloadHandle.CheckUpdateAsync("Core");
         }
 
         private void tsbCheckUpdatePACList_Click(object sender, EventArgs e)
