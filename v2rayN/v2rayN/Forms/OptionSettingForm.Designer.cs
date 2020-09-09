@@ -33,6 +33,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkdefAllowInsecure = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.cmblistenerType = new System.Windows.Forms.ComboBox();
             this.chksniffingEnabled2 = new System.Windows.Forms.CheckBox();
@@ -65,10 +66,10 @@
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.cmbroutingMode = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.linkLabelRoutingDoc = new System.Windows.Forms.LinkLabel();
             this.btnSetDefRountingRule = new System.Windows.Forms.Button();
             this.labRoutingTips = new System.Windows.Forms.Label();
             this.cmbdomainStrategy = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.chkKcpcongestion = new System.Windows.Forms.CheckBox();
             this.txtKcpwriteBufferSize = new System.Windows.Forms.TextBox();
@@ -146,6 +147,7 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.chkdefAllowInsecure);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.cmblistenerType);
             this.groupBox1.Controls.Add(this.chksniffingEnabled2);
@@ -168,6 +170,12 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // chkdefAllowInsecure
+            // 
+            resources.ApplyResources(this.chkdefAllowInsecure, "chkdefAllowInsecure");
+            this.chkdefAllowInsecure.Name = "chkdefAllowInsecure";
+            this.chkdefAllowInsecure.UseVisualStyleBackColor = true;
             // 
             // label16
             // 
@@ -388,11 +396,18 @@
             // panel3
             // 
             resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Controls.Add(this.linkLabelRoutingDoc);
             this.panel3.Controls.Add(this.btnSetDefRountingRule);
             this.panel3.Controls.Add(this.labRoutingTips);
             this.panel3.Controls.Add(this.cmbdomainStrategy);
-            this.panel3.Controls.Add(this.label15);
             this.panel3.Name = "panel3";
+            // 
+            // linkLabelRoutingDoc
+            // 
+            resources.ApplyResources(this.linkLabelRoutingDoc, "linkLabelRoutingDoc");
+            this.linkLabelRoutingDoc.Name = "linkLabelRoutingDoc";
+            this.linkLabelRoutingDoc.TabStop = true;
+            this.linkLabelRoutingDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRoutingDoc_LinkClicked);
             // 
             // btnSetDefRountingRule
             // 
@@ -417,11 +432,6 @@
             resources.GetString("cmbdomainStrategy.Items1"),
             resources.GetString("cmbdomainStrategy.Items2")});
             this.cmbdomainStrategy.Name = "cmbdomainStrategy";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
             // 
             // tabPage6
             // 
@@ -707,7 +717,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox cmbdomainStrategy;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cmbroutingMode;
         private System.Windows.Forms.CheckBox chksniffingEnabled;
         private System.Windows.Forms.CheckBox chksniffingEnabled2;
@@ -723,5 +732,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkKeepOlderDedupl;
+        private System.Windows.Forms.LinkLabel linkLabelRoutingDoc;
+        private System.Windows.Forms.CheckBox chkdefAllowInsecure;
     }
 }

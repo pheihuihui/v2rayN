@@ -69,7 +69,7 @@ namespace v2rayN.Handler
             }
             else
             {
-                ShowMsg(true, msg);
+                ShowMsg(false, msg);
                 pid = V2rayStartNew(configStr);
                 //V2rayRestart();
                 // start with -config
@@ -174,8 +174,8 @@ namespace v2rayN.Handler
             }
             if (Utils.IsNullOrEmpty(fileName))
             {
-                string msg = string.Format(UIRes.I18N("NotFoundCore"), @"https://github.com/v2ray/v2ray-core/releases");
-                ShowMsg(true, msg);
+                string msg = string.Format(UIRes.I18N("NotFoundCore"), @"https://github.com/v2fly/v2ray-core/releases");
+                ShowMsg(false, msg);
             }
             return fileName;
         }
@@ -200,6 +200,7 @@ namespace v2rayN.Handler
                         WorkingDirectory = Utils.StartupPath(),
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
+                        RedirectStandardError = true,
                         CreateNoWindow = true,
                         StandardOutputEncoding = Encoding.UTF8
                     }
@@ -213,9 +214,15 @@ namespace v2rayN.Handler
                     }
                 });
                 p.Start();
+                p.PriorityClass = ProcessPriorityClass.High;
                 p.BeginOutputReadLine();
                 //processId = p.Id;
                 _process = p;
+
+                if (p.WaitForExit(1000))
+                {
+                    throw new Exception(p.StandardError.ReadToEnd());
+                }
 
                 Global.processJob.AddProcess(p.Handle);
             }
@@ -248,6 +255,7 @@ namespace v2rayN.Handler
                         UseShellExecute = false,
                         RedirectStandardInput = true,
                         RedirectStandardOutput = true,
+                        RedirectStandardError = true,
                         CreateNoWindow = true,
                         StandardOutputEncoding = Encoding.UTF8
                     }
@@ -266,6 +274,11 @@ namespace v2rayN.Handler
                 p.StandardInput.Write(configStr);
                 p.StandardInput.Close();
 
+                if (p.WaitForExit(1000))
+                {
+                    throw new Exception(p.StandardError.ReadToEnd());
+                }
+
                 Global.processJob.AddProcess(p.Handle);
                 return p.Id;
             }
@@ -273,7 +286,7 @@ namespace v2rayN.Handler
             {
                 Utils.SaveLog(ex.Message, ex);
                 string msg = ex.Message;
-                ShowMsg(true, msg);
+                ShowMsg(false, msg);
                 return -1;
             }
         }

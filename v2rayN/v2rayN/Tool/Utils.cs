@@ -285,14 +285,14 @@ namespace v2rayN
                     if (GBs > 0)
                     {
                         // multi GB
-                        ulong TBs = GBs / factor;
+                        /*ulong TBs = GBs / factor;
                         if (TBs > 0)
                         {
                             // 你是魔鬼吗？ 用这么多流量
                             result = TBs + GBs % factor / (factor + 0.0);
                             unit = "TB";
                             return;
-                        }
+                        }*/
                         result = GBs + MBs % factor / (factor + 0.0);
                         unit = "GB";
                         return;
@@ -804,21 +804,14 @@ namespace v2rayN
 
         public static string UnGzip(byte[] buf)
         {
-            byte[] buffer = new byte[1024];
-            int n;
-            using (MemoryStream sb = new MemoryStream())
+            MemoryStream sb = new MemoryStream();
+            using (GZipStream input = new GZipStream(new MemoryStream(buf),
+            CompressionMode.Decompress,
+            false))
             {
-                using (GZipStream input = new GZipStream(new MemoryStream(buf),
-                    CompressionMode.Decompress,
-                    false))
-                {
-                    while ((n = input.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        sb.Write(buffer, 0, n);
-                    }
-                }
-                return Encoding.UTF8.GetString(sb.ToArray());
+                input.CopyTo(sb);
             }
+            return Encoding.UTF8.GetString(sb.ToArray());
         }
 
         #endregion

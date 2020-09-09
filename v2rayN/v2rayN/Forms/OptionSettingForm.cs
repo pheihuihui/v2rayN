@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using v2rayN.Handler;
 using v2rayN.Base;
+using v2rayN.HttpProxyHandler;
 
 namespace v2rayN.Forms
 {
@@ -67,7 +68,9 @@ namespace v2rayN.Forms
             //remoteDNS
             txtremoteDNS.Text = config.remoteDNS;
 
-            cmblistenerType.SelectedIndex = config.listenerType;
+            cmblistenerType.SelectedIndex = (int)config.listenerType;
+
+            chkdefAllowInsecure.Checked = config.defAllowInsecure;
         }
 
         /// <summary>
@@ -262,7 +265,10 @@ namespace v2rayN.Forms
             //remoteDNS
             config.remoteDNS = txtremoteDNS.Text.TrimEx();
 
-            config.listenerType = cmblistenerType.SelectedIndex;
+            config.listenerType = (ListenerType)Enum.ToObject(typeof(ListenerType), cmblistenerType.SelectedIndex);
+
+            config.defAllowInsecure = chkdefAllowInsecure.Checked;
+
             return 0;
         }
 
@@ -434,6 +440,11 @@ namespace v2rayN.Forms
         void AppendText(bool notify, string text)
         {
             labRoutingTips.Text = text;
+        }
+
+        private void linkLabelRoutingDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.v2fly.org/config/routing.html");
         }
     }
 

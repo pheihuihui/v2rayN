@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using v2rayN.Base;
+using v2rayN.HttpProxyHandler;
+
 
 namespace v2rayN.Mode
 {
@@ -107,9 +109,9 @@ namespace v2rayN.Mode
         }
 
         /// <summary>
-        /// 监听状态 0-not 1-http 2-PAC
+        /// 监听状态
         /// </summary>
-        public int listenerType
+        public ListenerType listenerType
         {
             get; set;
         }
@@ -167,7 +169,7 @@ namespace v2rayN.Mode
         {
             get; set;
         }
-         
+
 
         /// <summary>
         /// 自定义远程DNS
@@ -176,6 +178,15 @@ namespace v2rayN.Mode
         {
             get; set;
         }
+
+        /// <summary>
+        /// 是否允许不安全连接
+        /// </summary>
+        public bool defAllowInsecure
+        {
+            get; set;
+        }
+
         /// <summary>
         /// 订阅
         /// </summary>
@@ -194,7 +205,7 @@ namespace v2rayN.Mode
         public List<string> userPacRule
         {
             get; set;
-        }      
+        }
 
         #region 函数
 
@@ -295,7 +306,7 @@ namespace v2rayN.Mode
         {
             if (index < 0 || Utils.IsNullOrEmpty(vmess[index].allowInsecure))
             {
-                return true;
+                return defAllowInsecure;
             }
             return Convert.ToBoolean(vmess[index].allowInsecure);
         }
@@ -412,6 +423,10 @@ namespace v2rayN.Mode
                 summary += string.Format("{0}({1}:{2})", remarks, addr, port);
             }
             else if (configType == (int)EConfigType.Socks)
+            {
+                summary += string.Format("{0}({1}:{2})", remarks, addr, port);
+            }
+            else if (configType == (int)EConfigType.VLESS)
             {
                 summary += string.Format("{0}({1}:{2})", remarks, addr, port);
             }
@@ -697,10 +712,16 @@ namespace v2rayN.Mode
     [Serializable]
     public class UIItem
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int mainQRCodeWidth { get; set; } = 600;
 
+
+        public System.Drawing.Size mainSize
+        {
+            get; set;
+        }
+
+        public Dictionary<string, int> mainLvColWidth
+        {
+            get; set;
+        }
     }
 }
